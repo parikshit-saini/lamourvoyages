@@ -1,0 +1,189 @@
+// Shared layouts for About, Services, Contact and Privacy pages
+@use "tokens" as *;
+@use "mixins" as *;
+
+.section {
+  @include section-y;
+  background: $surface;
+}
+
+.sectionWhite {
+  @include section-y;
+  background: $surface-low;
+}
+
+.sectionTint {
+  @include section-y;
+  background: $surface-container;
+}
+
+.split {
+  display: grid;
+  gap: $space-xl;
+  grid-template-columns: 1fr;
+  align-items: center;
+  @include lg { grid-template-columns: 1fr 1fr; gap: $space-2xl; }
+
+  > div > div:first-child { margin-bottom: $space-lg; }
+}
+
+.lead {
+  @include body-lg;
+  color: $on-surface-variant;
+  margin-bottom: $space-md;
+}
+
+.imageFrame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lift;
+  img { object-fit: cover; transition: transform 0.7s ease-out; }
+  &:hover img { transform: scale(1.06); }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-md;
+  margin-top: $space-lg;
+  @include md { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stat {
+  @include card-surface;
+  padding: $space-md;
+
+  strong {
+    display: block;
+    font-family: $font-serif;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 600;
+  }
+  span { @include body-sm; color: $on-surface-variant; }
+}
+
+.cards {
+  display: grid;
+  gap: $gutter;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(2, 1fr); }
+  @include lg { grid-template-columns: repeat(3, 1fr); gap: $gutter-desktop; }
+}
+
+.cards4 {
+  @extend .cards;
+  @include lg { grid-template-columns: repeat(4, 1fr); }
+}
+
+.card {
+  @include card-surface;
+  @include card-lift;
+  padding: $space-lg;
+
+  h3 { @include headline-sm; margin: $space-md 0 6px; }
+  p { color: $on-surface-variant; }
+  ul { margin-top: 0.75rem; }
+
+  li {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 2px 0;
+    @include body-sm;
+    :global(.material-symbols-outlined) { color: $secondary; }
+  }
+}
+
+.icon {
+  @include icon-badge;
+  background: $primary;
+  color: $on-primary;
+}
+
+.iconAzure {
+  @include icon-badge;
+  background: $surface-container;
+  color: $secondary;
+}
+
+.team {
+  display: grid;
+  gap: $gutter;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(2, 1fr); }
+}
+
+.person {
+  display: flex;
+  gap: $space-md;
+  align-items: flex-start;
+  padding: $space-lg;
+  border-radius: $radius-lg;
+  background: $primary;
+  color: $on-primary;
+
+  h3 { @include headline-sm; }
+  small {
+    display: block;
+    margin: 4px 0 $space-sm;
+    @include label-sm;
+    text-transform: uppercase;
+    color: $secondary-fixed;
+  }
+  p { color: rgba($surface-high, 0.8); }
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: $radius-full;
+  background: $surface-lowest;
+  color: $on-surface;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Contact cards
+.contactCard {
+  @extend .card;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+
+  h3 { margin-bottom: 4px; }
+  a {
+    color: $secondary;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// Privacy
+.proseWrap {
+  @include card-surface;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: $space-lg;
+  @include lg { padding: $space-2xl; }
+}
+
+.updated {
+  @include body-sm;
+  color: $outline;
+}
+
+// 404
+.notFound {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}

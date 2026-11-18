@@ -1,0 +1,254 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+
+  // Blur lives on a pseudo-element so the fixed mobile drawer stays relative to the viewport
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba($surface-lowest, 0.8);
+    backdrop-filter: blur(24px);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+  }
+}
+
+.bar {
+  @include container;
+  height: $header-height;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gutter;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  min-width: 0;
+
+  &:hover .logo { transform: scale(1.05); }
+  &:hover .brandName { color: $secondary; }
+}
+
+.logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.brandName {
+  @include headline-sm;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: $on-surface;
+  transition: color 0.3s;
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-xs;
+  border-radius: $radius-full;
+  background: $surface-low;
+  @include xl { display: flex; }
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.375rem 1rem;
+  border: 0;
+  border-radius: $radius-full;
+  background: transparent;
+  color: $on-surface-variant;
+  @include label-lg;
+  white-space: nowrap;
+  transition: color 0.2s, background-color 0.2s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    border-radius: $radius-full;
+    background: currentColor;
+    transition: width 0.3s $ease-out, left 0.3s $ease-out;
+  }
+
+  &:hover {
+    color: $on-surface;
+    background: rgba($surface-high, 0.6);
+    &::after { width: 60%; left: 20%; }
+  }
+}
+
+.active {
+  background: $surface-high;
+  color: $on-surface;
+}
+
+.chevron { transition: transform 0.3s; }
+
+// ---------- Dropdown ----------
+.dropdown {
+  position: relative;
+
+  &:hover .chevron,
+  &:focus-within .chevron { transform: rotate(180deg); }
+
+  &:hover .menuWrap,
+  &:focus-within .menuWrap {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.menuWrap {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  padding-top: $space-sm;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: $space-sm;
+  border: 1px solid rgba($outline-variant, 0.3);
+  border-radius: $radius;
+  background: $surface-lowest;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12);
+}
+
+.menuLabel {
+  padding: 0.75rem 1rem 0.25rem;
+  @include label-sm;
+  text-transform: uppercase;
+  color: $secondary;
+}
+
+.menuItem {
+  padding: 0.5rem 1rem;
+  border-radius: $radius;
+  color: $on-surface-variant;
+  @include label-md;
+  transition: background-color 0.15s, color 0.15s, transform 0.15s;
+
+  &:hover {
+    background: $surface-low;
+    color: $secondary;
+    transform: translateX(4px);
+  }
+}
+
+.menuActive { color: $secondary; }
+
+// ---------- Actions ----------
+.actions {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.actions .cta {
+  display: none;
+  @include sm { display: inline-flex; }
+}
+
+.burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: $radius-full;
+  background: $surface-low;
+  color: $on-surface;
+  @include xl { display: none; }
+}
+
+// ---------- Mobile drawer ----------
+.drawer {
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $surface-lowest;
+  overflow-y: auto;
+  padding: $space-lg $margin $space-2xl;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.25s, transform 0.25s $ease-out, visibility 0.25s;
+  @include xl { display: none; }
+}
+
+.drawerOpen {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.drawerGroup {
+  padding-bottom: $space-md;
+  border-bottom: 1px solid $surface-high;
+}
+
+.drawerLabel {
+  display: block;
+  margin-bottom: 0.75rem;
+  @include label-sm;
+  text-transform: uppercase;
+  color: $secondary;
+}
+
+.drawerChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-sm;
+}
+
+.drawerChip {
+  padding: 0.5rem 0.875rem;
+  border-radius: $radius-full;
+  background: $surface-low;
+  color: $on-surface;
+  @include label-lg;
+}
+
+.drawerLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid $surface-high;
+  @include headline-sm;
+  color: $on-surface;
+}
+
+.drawerCta {
+  width: 100%;
+  margin-top: $space-lg;
+}

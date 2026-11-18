@@ -1,0 +1,255 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include section-y;
+  background: $surface-low;
+}
+
+.wrap {
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-inline: $margin;
+  @include lg { padding-inline: $margin-desktop; }
+}
+
+.panel {
+  padding: $space-lg;
+  border: 1px solid rgba($outline-variant, 0.2);
+  border-radius: $radius-lg;
+  background: $surface-lowest;
+  box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.08);
+  transition: box-shadow 0.5s;
+  @include lg { padding: 3rem; }
+
+  &:hover { box-shadow: 0 35px 70px -15px rgba(15, 23, 42, 0.12); }
+}
+
+.head {
+  max-width: 42rem;
+  margin: 0 auto $space-xl;
+  text-align: center;
+
+  h2 { @include headline-lg; margin: $space-sm 0 0.75rem; }
+  p { color: $on-surface-variant; }
+}
+
+.eyebrow {
+  @include label-sm;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $secondary;
+}
+
+// ---------- Segmented switch ----------
+.toggleWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  max-width: 26rem;
+  padding: 4px;
+  border-radius: $radius-full;
+  background: $surface-container;
+
+  button {
+    position: relative;
+    z-index: 1;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: $radius-full;
+    background: transparent;
+    color: $on-surface-variant;
+    @include label-md;
+    letter-spacing: 0;
+    transition: color 0.2s;
+    &:hover { color: $on-surface; }
+  }
+
+  .toggleActive { color: $on-surface; }
+}
+
+.indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  border-radius: $radius-full;
+  background: $surface-lowest;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-out;
+}
+
+.indicatorRight { transform: translateX(100%); }
+
+// ---------- Form ----------
+.form {
+  display: grid;
+  gap: $space-md;
+  grid-template-columns: 1fr;
+  @include sm { grid-template-columns: repeat(2, 1fr); }
+  @include lg { grid-template-columns: repeat(3, 1fr); }
+
+  input:not([type="checkbox"]),
+  select,
+  textarea {
+    @include field;
+  }
+
+  select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 2.5rem;
+    text-overflow: ellipsis;
+  }
+
+  textarea { resize: vertical; display: block; }
+}
+
+.full { grid-column: 1 / -1; }
+
+.wide {
+  @include lg { grid-column: span 2; }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+
+  &:focus-within .label { color: $secondary; }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  @include label-sm;
+  text-transform: uppercase;
+  color: $on-surface-variant;
+  transition: color 0.2s;
+
+  small {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: $outline;
+  }
+}
+
+.selectWrap {
+  position: relative;
+  display: block;
+
+  > :global(.material-symbols-outlined) {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $outline;
+    pointer-events: none;
+  }
+}
+
+.captcha {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  input { flex: 1; min-width: 0; }
+}
+
+.code {
+  padding: 0.75rem;
+  border-radius: $radius;
+  background: $surface-container;
+  color: $on-surface;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.honeypot {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: $error;
+  @include body-sm;
+}
+
+.submitRow {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: $space-md;
+  padding-top: $space-sm;
+  @include md { flex-direction: row; align-items: center; }
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+  @include body-sm;
+  color: $on-surface-variant;
+  cursor: pointer;
+
+  input {
+    width: 16px;
+    height: 16px;
+    margin: 2px 0 0;
+    flex-shrink: 0;
+    accent-color: $secondary;
+  }
+}
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm $space-lg;
+  margin-top: 2rem;
+  padding-top: $space-lg;
+  border-top: 1px solid rgba($outline-variant, 0.2);
+  @include body-sm;
+  color: $on-surface-variant;
+
+  a { transition: color 0.2s; overflow-wrap: anywhere; &:hover { color: $secondary; } }
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-md;
+  padding: $space-2xl 0;
+  text-align: center;
+
+  > :global(.material-symbols-outlined) { color: $success; }
+  h3 { @include headline-lg; }
+  p { max-width: 28rem; color: $on-surface-variant; }
+}

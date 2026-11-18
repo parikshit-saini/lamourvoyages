@@ -1,0 +1,43 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include section-y;
+  background: $surface;
+}
+
+.band {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  padding: $space-xl $space-lg;
+  border-radius: $radius-lg;
+  background: $primary;
+  color: $on-primary;
+  @include lg {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-2xl;
+  }
+
+  h2 { @include headline-lg; margin: $space-sm 0; }
+  p { max-width: 36rem; color: rgba($surface-high, 0.8); }
+}
+
+.eyebrow {
+  @include label-sm;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $secondary-fixed;
+}
+
+.actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

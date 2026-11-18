@@ -1,0 +1,219 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+@keyframes slowHeroZoom {
+  0% { transform: scale(1.04) translate3d(0, 0, 0); }
+  50% { transform: scale(1.09) translate3d(-0.5%, -0.8%, 0); }
+  100% { transform: scale(1.04) translate3d(0, 0, 0); }
+}
+
+@keyframes heroAtmosphere {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.45; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  50% { opacity: 0.45; }
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(#{$header-height} + 2.5rem) 0 $space-2xl;
+  background: $on-surface;
+  @include lg { min-height: 942px; }
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  animation: slowHeroZoom 24s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.bgImage { object-fit: cover; }
+
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top right, rgba($secondary, 0.15), transparent, rgba(251, 191, 36, 0.1));
+  pointer-events: none;
+  animation: heroAtmosphere 9s ease-in-out infinite;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, $on-surface, rgba($on-surface, 0.4) 50%, rgba(0, 0, 0, 0.3));
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-inline: $margin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  @include lg { padding-inline: $margin-desktop; }
+}
+
+.fade1, .fade2, .fade3, .fade4, .fade5 {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fade1 { animation-delay: 0.1s; }
+.fade2 { animation-delay: 0.25s; }
+.fade3 { animation-delay: 0.4s; }
+.fade4 { animation-delay: 0.55s; }
+.fade5 { animation-delay: 0.7s; }
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: 0.25rem 1rem;
+  margin-bottom: $space-lg;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $radius-full;
+  background: rgba($surface-lowest, 0.2);
+  backdrop-filter: blur(12px);
+  color: $surface-lowest;
+  @include label-sm;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-full;
+  background: $secondary-container;
+  box-shadow: 0 0 8px $secondary-container;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.title {
+  @include display;
+  max-width: 56rem;
+  color: $surface-lowest;
+  text-wrap: balance;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+  em {
+    font-style: italic;
+    font-weight: 400;
+    color: $secondary-fixed;
+  }
+}
+
+.lead {
+  @include body-lg;
+  max-width: 42rem;
+  margin: $space-lg 0 $space-xl;
+  color: rgba($surface-high, 0.9);
+}
+
+.ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: $space-md;
+  width: 100%;
+  @include sm { flex-direction: row; justify-content: center; width: auto; }
+
+  :global(.btn) { padding: 1rem 2rem; }
+}
+
+// ---------- Search bar ----------
+.search {
+  width: 100%;
+  max-width: 56rem;
+  margin-top: $space-xl;
+  padding: $space-md;
+  display: grid;
+  align-items: center;
+  gap: $space-sm;
+  grid-template-columns: 1fr;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: $radius;
+  background: rgba($surface-lowest, 0.9);
+  backdrop-filter: blur(24px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s;
+  @include sm { grid-template-columns: repeat(2, 1fr); }
+  @include lg { grid-template-columns: repeat(4, 1fr); margin-top: $space-2xl; }
+
+  &:hover { box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.32); }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: $space-xs $space-md;
+  border: 1px solid transparent;
+  border-radius: $radius;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  &:hover,
+  &:focus-within {
+    background: $surface-low;
+    border-color: rgba($outline-variant, 0.3);
+  }
+}
+
+.label {
+  @include label-sm;
+  text-transform: uppercase;
+  color: $secondary;
+}
+
+.control {
+  position: relative;
+  display: block;
+  margin-top: 4px;
+
+  select {
+    width: 100%;
+    padding: 0 1.5rem 0 0;
+    border: 0;
+    background: transparent;
+    color: $on-surface;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 600;
+    appearance: none;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    &:focus { outline: none; }
+    option { font-weight: 400; }
+  }
+
+  :global(.material-symbols-outlined) {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $outline;
+    pointer-events: none;
+  }
+}
+
+.search .submit {
+  width: 100%;
+  padding-inline: $space-md;
+}

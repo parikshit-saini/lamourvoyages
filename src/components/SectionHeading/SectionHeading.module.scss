@@ -1,0 +1,41 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.heading {
+  max-width: 48rem;
+}
+
+.center {
+  margin: 0 auto $space-xl;
+  text-align: center;
+  @include lg { margin-bottom: 3.5rem; }
+}
+
+.left {
+  max-width: 42rem;
+}
+
+.eyebrow {
+  @include pill-label;
+  margin-bottom: $space-sm;
+}
+
+.title,
+.display {
+  color: $on-surface;
+
+  em {
+    font-style: italic;
+    font-weight: 400;
+    color: $secondary;
+  }
+}
+
+.title { @include headline-lg; }
+.display { @include display; }
+
+.text {
+  @include body-md;
+  color: $on-surface-variant;
+  margin-top: $space-sm;
+}

@@ -1,0 +1,67 @@
+// ---------------------------------------------------------------
+// L'amour Voyages design tokens (from the Stitch home page design)
+// ---------------------------------------------------------------
+
+// Colours
+$primary: #000000;
+$on-primary: #ffffff;
+
+$secondary: #006591;
+$secondary-container: #39b8fd;
+$secondary-fixed: #c9e6ff;
+$on-secondary-fixed: #001e2f;
+
+$surface: #f7f9fb;
+$surface-lowest: #ffffff;
+$surface-low: #f2f4f6;
+$surface-container: #eceef0;
+$surface-high: #e6e8ea;
+$surface-highest: #e0e3e5;
+
+$on-surface: #191c1e;
+$on-surface-variant: #45464d;
+$outline: #76777d;
+$outline-variant: #c6c6cd;
+
+$success: #1b7f5c;
+$error: #ba1a1a;
+
+// Fonts
+$font-sans: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+
+// Spacing
+$space-xs: 0.25rem;
+$space-sm: 0.5rem;
+$space-md: 1rem;
+$space-lg: 1.5rem;
+$space-xl: 2.5rem;
+$space-2xl: 4rem;
+
+$margin: 1.25rem;
+$margin-desktop: 3.5rem;
+$gutter: 1.5rem;
+$gutter-desktop: 2rem;
+$container: 80rem;
+
+// Radius
+$radius: 1rem;
+$radius-lg: 2rem;
+$radius-full: 9999px;
+
+// Shadows
+$shadow-soft: 0 15px 30px -10px rgba(15, 23, 42, 0.05);
+$shadow-card: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+$shadow-lift: 0 30px 50px -10px rgba(15, 23, 42, 0.18);
+$shadow-glow: 0 8px 24px rgba(0, 101, 145, 0.4);
+
+// Motion
+$ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+// Breakpoints
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+$header-height: 80px;

@@ -1,0 +1,51 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/dmc" as *;
+
+.section {
+  padding-block: 48px;
+  background: $paper;
+  @include lg { padding-block: 64px; }
+}
+
+.container { @include dmc-container; }
+
+.band {
+  padding: 32px 20px;
+  border-radius: 16px;
+  background: $paper-deep;
+  text-align: center;
+  @include lg { padding: 40px; }
+
+  h2 {
+    margin: 4px 0 24px;
+    font-family: $garamond;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 500;
+    color: $forest;
+  }
+
+  ul {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    @include md { grid-template-columns: repeat(5, 1fr); }
+  }
+
+  li {
+    padding: 12px 8px;
+    border-radius: 8px;
+    background: #fff;
+    font-family: $garamond;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: $body-ink;
+  }
+}
+
+.eyebrow {
+  @include eyebrow;
+  color: $bronze;
+}

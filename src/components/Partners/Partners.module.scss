@@ -1,0 +1,50 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include section-y;
+  background: $surface;
+  text-align: center;
+}
+
+.eyebrow {
+  @include pill-label;
+  margin-bottom: $space-sm;
+}
+
+.title {
+  font-family: $font-serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+  margin-bottom: $space-lg;
+}
+
+.logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: $space-md;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: 0.625rem 1.25rem;
+  border: 1px solid rgba($outline-variant, 0.3);
+  border-radius: $radius-full;
+  background: $surface-lowest;
+  @include label-lg;
+  transition: border-color 0.2s, transform 0.2s;
+
+  &:hover { border-color: $secondary; transform: translateY(-2px); }
+
+  :global(.material-symbols-outlined) { color: $secondary; }
+
+  small {
+    @include body-sm;
+    color: $on-surface-variant;
+  }
+}

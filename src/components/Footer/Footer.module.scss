@@ -1,0 +1,230 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.footer {
+  padding: $space-xl 0;
+  background: $surface-low;
+  color: $on-surface;
+  @include lg { padding-top: $space-2xl; }
+}
+
+.eyebrow {
+  display: block;
+  @include label-sm;
+  text-transform: uppercase;
+  color: $secondary;
+}
+
+// ---------- Newsletter ----------
+.newsletter {
+  @include card-surface;
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  padding: $space-lg;
+  margin-bottom: $space-xl;
+  @include lg {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-lg $space-xl;
+  }
+
+  h2 {
+    margin-top: 4px;
+    font-family: $font-serif;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+  }
+}
+
+.newsletterForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  @include sm { flex-direction: row; }
+  @include lg { width: auto; }
+}
+
+.emailField {
+  position: relative;
+  width: 100%;
+  @include sm { width: 20rem; }
+
+  :global(.material-symbols-outlined) {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $outline;
+  }
+
+  input {
+    @include field;
+    padding: 0.625rem 1rem 0.625rem 2.625rem;
+    border-radius: $radius-full;
+  }
+}
+
+.subscribed {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-sm;
+  color: $success;
+  @include label-lg;
+}
+
+// ---------- Columns ----------
+.grid {
+  display: grid;
+  gap: $space-xl $gutter-desktop;
+  margin-bottom: $space-xl;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(2, 1fr); }
+  @include lg { grid-template-columns: 4fr 2fr 3fr 3fr; }
+}
+
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+
+  > p {
+    max-width: 24rem;
+    color: $on-surface-variant;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  @include headline-sm;
+  letter-spacing: -0.02em;
+  transition: color 0.3s;
+  &:hover { color: $secondary; }
+}
+
+.logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+}
+
+.social {
+  display: flex;
+  gap: $space-sm;
+
+  a {
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-full;
+    background: $surface-container;
+    color: $on-surface;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s, transform 0.2s;
+    &:hover { background: $primary; color: $on-primary; transform: scale(1.1); }
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  h3 {
+    @include label-lg;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  @include body-sm;
+  color: $on-surface-variant;
+  a { transition: color 0.2s; &:hover { color: $secondary; } }
+}
+
+.offices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  @include body-sm;
+  color: $on-surface-variant;
+
+  div { display: flex; flex-direction: column; gap: 2px; }
+  strong {
+    @include label-sm;
+    text-transform: uppercase;
+    color: $secondary;
+  }
+}
+
+.concierge {
+  @include card-surface;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-md;
+  padding: $space-lg;
+
+  h3 { @include headline-sm; margin: 4px 0; }
+  p { @include body-sm; color: $on-surface-variant; }
+}
+
+.conciergeLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: $space-md;
+  border-top: 1px solid rgba($outline-variant, 0.2);
+  @include body-sm;
+  color: $on-surface-variant;
+  a { transition: color 0.2s; &:hover { color: $secondary; } }
+}
+
+.email {
+  @include label-md;
+  letter-spacing: 0;
+  color: $on-surface;
+  overflow-wrap: anywhere;
+}
+
+// ---------- Bottom bar ----------
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-md;
+  padding: $space-md $space-lg;
+  border: 1px solid rgba($outline-variant, 0.15);
+  border-radius: $radius;
+  background: rgba($surface-container, 0.6);
+  @include body-sm;
+  color: $on-surface-variant;
+  text-align: center;
+  @include lg { flex-direction: row; text-align: left; }
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px $space-md;
+}
+
+.bottomLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $space-sm $space-lg;
+  a { transition: color 0.2s; &:hover { color: $secondary; } }
+}

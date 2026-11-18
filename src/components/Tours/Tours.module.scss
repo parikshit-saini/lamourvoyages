@@ -1,0 +1,229 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(-8px); }
+  50% { transform: translateY(-16px); }
+}
+
+// ---------- Showcase ----------
+.showcase {
+  @include section-y;
+  background: $surface;
+}
+
+.results {
+  margin: -1.5rem 0 $space-md;
+  text-align: center;
+  color: $on-surface-variant;
+
+  button {
+    margin-left: $space-sm;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: $secondary;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+}
+
+.scroller {
+  position: relative;
+  overflow-x: auto;
+  margin-inline: -$margin;
+  padding: 1.5rem $margin 2rem;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  @include lg {
+    margin-inline: 0;
+    padding-inline: 0.5rem;
+    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+  }
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+  width: max-content;
+  margin-inline: auto;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-lg;
+  margin-top: $space-md;
+}
+
+.arrow {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba($outline-variant, 0.3);
+  border-radius: $radius-full;
+  background: $surface-lowest;
+  color: $on-surface;
+  transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    background: $secondary;
+    color: $on-primary;
+    box-shadow: 0 8px 20px rgba($secondary, 0.25);
+  }
+  &:active { transform: scale(0.9); }
+}
+
+.moreLink {
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 600;
+  transition: color 0.2s;
+  &:hover { color: $secondary; }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-md;
+  padding: $space-2xl $space-lg;
+  text-align: center;
+  color: $on-surface-variant;
+  :global(.material-symbols-outlined) { color: $secondary; }
+}
+
+// ---------- Card ----------
+.card {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: $radius-lg;
+  background: $on-surface;
+  color: $surface-lowest;
+  box-shadow: 0 16px 30px -10px rgba(15, 23, 42, 0.12);
+  transition: transform 0.4s $ease-out, box-shadow 0.4s $ease-out;
+
+  &:hover {
+    box-shadow: 0 26px 45px -10px rgba(15, 23, 42, 0.22);
+    .image { transform: scale(1.1); }
+    .title { color: $secondary-fixed; }
+    .body { transform: translateY(-4px); }
+  }
+}
+
+.fluid { width: 100%; height: 27.5rem; }
+.sm { width: 16rem; height: 27.5rem; }
+.md { width: 16rem; height: 29.375rem; }
+
+.lg {
+  width: 18rem;
+  height: 32.5rem;
+  z-index: 2;
+  box-shadow: 0 25px 60px -10px rgba($secondary, 0.4), 0 0 0 1px rgba($secondary, 0.3);
+  animation: gentleFloat 5s ease-in-out infinite;
+
+  &:hover {
+    box-shadow: 0 35px 70px -10px rgba($secondary, 0.55), 0 0 0 1px rgba($secondary, 0.7);
+  }
+  .title { @include headline-md; font-weight: 500; }
+  .body { padding: $space-lg; }
+  .cta { padding-block: 0.875rem; }
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.7s ease-out;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, $on-surface, rgba($on-surface, 0.4) 50%, transparent);
+}
+
+.duration,
+.signature {
+  position: absolute;
+  top: 1rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: $radius-full;
+  @include label-sm;
+}
+
+.duration {
+  right: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  color: $on-primary;
+}
+
+.signature {
+  left: 1rem;
+  background: $secondary;
+  color: $on-primary;
+  text-transform: uppercase;
+}
+
+.body {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  transition: transform 0.3s;
+}
+
+.title {
+  @include headline-sm;
+  font-weight: 500;
+  margin-bottom: 4px;
+  transition: color 0.3s;
+}
+
+.desc {
+  @include body-sm;
+  @include line-clamp(2);
+  margin-bottom: 0.75rem;
+  color: $surface-high;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-sm;
+  margin-bottom: $space-md;
+}
+
+.tag {
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $radius-full;
+  background: rgba($surface-lowest, 0.2);
+  backdrop-filter: blur(4px);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.cta {
+  padding: 0.625rem;
+  border-radius: $radius-full;
+  background: $surface-lowest;
+  color: $on-surface;
+  text-align: center;
+  @include label-sm;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background: $secondary;
+    color: $on-primary;
+  }
+}

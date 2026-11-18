@@ -1,0 +1,265 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.section {
+  @include section-y;
+  background: $surface-low;
+}
+
+.head {
+  display: grid;
+  gap: $space-lg;
+  align-items: end;
+  margin-bottom: $space-xl;
+  grid-template-columns: 1fr;
+  @include lg { grid-template-columns: 5fr 7fr; margin-bottom: $space-2xl; }
+
+  > p {
+    @include body-lg;
+    max-width: 36rem;
+    color: $on-surface-variant;
+    @include lg { margin-left: auto; }
+  }
+}
+
+.bento {
+  display: grid;
+  gap: $gutter;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(3, 1fr); gap: $gutter-desktop; }
+}
+
+.dark,
+.photo,
+.metrics {
+  border-radius: $radius-lg;
+  transition: transform 0.4s $ease-out, box-shadow 0.4s $ease-out;
+}
+
+// ---------- Dark card ----------
+.dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: $space-lg;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: $primary;
+  color: $on-primary;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+
+  &:hover { box-shadow: 0 30px 55px -10px rgba(0, 0, 0, 0.45); }
+
+  h3 { @include headline-sm; margin-bottom: $space-sm; transition: color 0.3s; }
+  &:hover h3 { color: $secondary-fixed; }
+  p { color: rgba($surface-high, 0.8); }
+}
+
+.darkTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-lg;
+}
+
+.routeIcon { color: $secondary-fixed; }
+
+.liveTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $radius-full;
+  background: rgba($surface-lowest, 0.1);
+  color: $surface-highest;
+  @include label-sm;
+  text-transform: uppercase;
+}
+
+.ping {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-full;
+  background: $secondary-container;
+  animation: ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.dark .darkCta { width: 100%; box-shadow: none; }
+
+// ---------- Photo card ----------
+.photo {
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
+  box-shadow: $shadow-card;
+  color: $surface-lowest;
+
+  &:hover { box-shadow: $shadow-lift; }
+  &:hover .photoImage { transform: scale(1.1); }
+}
+
+.photoImage {
+  object-fit: cover;
+  transition: transform 0.7s ease-out;
+}
+
+.photoShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 50%, rgba(0, 0, 0, 0.2));
+}
+
+.photoTag {
+  position: absolute;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-full;
+  background: rgba($surface-lowest, 0.3);
+  backdrop-filter: blur(12px);
+  @include label-md;
+  white-space: nowrap;
+}
+
+.photoText {
+  position: absolute;
+  inset: auto 1.5rem 1.5rem;
+  text-align: center;
+
+  strong { display: block; font-size: 17px; line-height: 24px; font-weight: 500; }
+  small { @include body-sm; color: $surface-high; }
+}
+
+// ---------- Metrics card ----------
+.metrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: $space-lg;
+  border: 1px solid rgba($outline-variant, 0.2);
+  background: $surface-lowest;
+  box-shadow: $shadow-card;
+
+  &:hover { box-shadow: $shadow-lift; }
+
+  p {
+    @include body-sm;
+    margin-bottom: $space-lg;
+    color: $on-surface-variant;
+  }
+}
+
+.metricTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $space-sm;
+  margin-bottom: $space-sm;
+
+  strong {
+    font-family: $font-serif;
+    font-size: 44px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  span {
+    @include label-sm;
+    text-transform: uppercase;
+    color: $secondary;
+  }
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.barLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  @include label-md;
+  letter-spacing: 0.02em;
+  b { color: $secondary; }
+}
+
+.barTrack {
+  height: 8px;
+  overflow: hidden;
+  border-radius: $radius-full;
+  background: $surface-low;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: $radius-full;
+  background: $secondary;
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.metricFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-sm;
+  padding-top: $space-md;
+  border-top: 1px solid rgba($outline-variant, 0.2);
+  @include body-sm;
+  color: $on-surface-variant;
+
+  span { display: inline-flex; align-items: center; gap: 6px; }
+  :global(.material-symbols-outlined) { color: $secondary; }
+  b {
+    padding: 2px 8px;
+    border-radius: $radius-full;
+    background: $surface-container;
+    color: $on-surface;
+    font-size: 12px;
+  }
+}
+
+// ---------- Stats ----------
+.stats {
+  display: grid;
+  gap: $space-md;
+  margin-top: $space-xl;
+  grid-template-columns: repeat(2, 1fr);
+  text-align: center;
+  @include md { grid-template-columns: repeat(4, 1fr); gap: $gutter-desktop; text-align: left; }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0.75rem;
+  border-radius: $radius;
+  transition: background-color 0.3s, transform 0.3s;
+
+  &:hover {
+    background: rgba($surface-lowest, 0.6);
+    transform: translateY(-4px);
+    strong { color: $secondary; }
+  }
+
+  strong {
+    font-family: $font-serif;
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 600;
+    transition: color 0.3s;
+    @include lg { font-size: 42px; }
+  }
+  span { @include body-sm; color: $on-surface-variant; }
+}

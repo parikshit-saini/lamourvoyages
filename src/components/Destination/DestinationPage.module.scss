@@ -1,0 +1,183 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.overview {
+  @include section-y;
+  background: $surface;
+}
+
+.overviewGrid {
+  display: grid;
+  gap: $space-xl;
+  grid-template-columns: 1fr;
+  @include lg {
+    grid-template-columns: 7fr 5fr;
+    gap: $space-2xl;
+    align-items: start;
+  }
+}
+
+.introCol {
+  > div { margin-bottom: $space-lg; }
+  :global(.btn) { margin-top: $space-sm; }
+}
+
+.intro {
+  @include body-lg;
+  color: $on-surface-variant;
+  margin-bottom: $space-md;
+}
+
+.facts {
+  padding: $space-lg;
+  border-radius: $radius-lg;
+  background: $primary;
+  color: $on-primary;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+  @include lg { padding: $space-xl; }
+
+  h3 {
+    @include label-sm;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $secondary-fixed;
+    margin-bottom: $space-sm;
+  }
+
+  dl { margin: 0 0 $space-lg; }
+
+  dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: $space-md;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  dt { @include body-sm; color: rgba($surface-high, 0.8); }
+  dd { @include body-sm; margin: 0; font-weight: 600; text-align: right; }
+}
+
+.perks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    @include label-lg;
+    :global(.material-symbols-outlined) { color: $secondary-fixed; }
+  }
+}
+
+// ---------- Cities ----------
+.cities {
+  @include section-y;
+  background: $surface-low;
+}
+
+.cityGrid {
+  display: grid;
+  gap: $space-md;
+  grid-template-columns: 1fr;
+  @include sm { grid-template-columns: repeat(2, 1fr); }
+  @include lg { grid-template-columns: repeat(5, 1fr); }
+}
+
+.city {
+  position: relative;
+  height: 24rem;
+  overflow: hidden;
+  border-radius: $radius-lg;
+  background: $on-surface;
+  color: $surface-lowest;
+  box-shadow: 0 16px 30px -10px rgba(15, 23, 42, 0.12);
+  transition: transform 0.4s $ease-out, box-shadow 0.4s $ease-out;
+
+  img { object-fit: cover; transition: transform 0.7s ease-out; }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 45px -10px rgba(15, 23, 42, 0.22);
+    img { transform: scale(1.1); }
+    strong { color: $secondary-fixed; }
+  }
+}
+
+.cityShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, $on-surface, rgba($on-surface, 0.4) 50%, transparent);
+}
+
+.cityText {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  strong { @include headline-sm; font-weight: 500; transition: color 0.3s; }
+  small { @include body-sm; @include line-clamp(2); color: $surface-high; }
+}
+
+.cityLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  @include label-sm;
+  text-transform: uppercase;
+}
+
+// ---------- Highlights ----------
+.highlights {
+  @include section-y;
+  background: $surface-low;
+}
+
+.highlightGrid {
+  display: grid;
+  gap: $gutter;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(2, 1fr); }
+  @include lg { grid-template-columns: repeat(3, 1fr); gap: $gutter-desktop; }
+}
+
+.highlight {
+  @include card-surface;
+  @include card-lift;
+  padding: $space-lg;
+
+  h3 { @include headline-sm; margin: $space-md 0 4px; }
+  p { color: $on-surface-variant; }
+}
+
+.hIcon {
+  @include icon-badge;
+  background: $surface-container;
+  color: $secondary;
+}
+
+// ---------- Tours ----------
+.tours {
+  @include section-y;
+  background: $surface;
+}
+
+// Flex so a shorter last row stays centred
+.tourGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $gutter;
+
+  > div {
+    width: 100%;
+    @include sm { width: calc((100% - #{$gutter}) / 2); }
+    @include lg { width: calc((100% - #{$gutter} * 3) / 4); }
+  }
+}

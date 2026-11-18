@@ -1,0 +1,94 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.section {
+  @include section-y;
+  background: $surface;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-md;
+  margin-bottom: $space-xl;
+  @include md { flex-direction: row; align-items: flex-end; }
+  @include lg { margin-bottom: $space-2xl; }
+
+  > p {
+    max-width: 28rem;
+    color: $on-surface-variant;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: $gutter;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(2, 1fr); }
+  @include lg { grid-template-columns: repeat(3, 1fr); gap: $gutter-desktop; }
+}
+
+.card {
+  @include card-surface;
+  @include card-lift;
+  margin: 0;
+  padding: $space-lg;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-lg;
+
+  &:hover .name { color: $secondary; }
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: $space-md;
+  color: $secondary;
+}
+
+.quote {
+  margin: 0;
+  font-style: italic;
+  color: $on-surface;
+}
+
+.name {
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.role {
+  display: block;
+  @include body-sm;
+  color: $on-surface-variant;
+}
+
+.callout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-lg;
+  padding: $space-lg;
+  border-radius: $radius;
+  background: $primary;
+  color: $on-primary;
+
+  h3 { @include headline-sm; margin-bottom: $space-sm; }
+  p { color: rgba($surface-high, 0.8); }
+}
+
+.calloutEyebrow {
+  display: block;
+  margin-bottom: $space-sm;
+  @include label-sm;
+  text-transform: uppercase;
+  color: $secondary-fixed;
+}
+
+.callout .calloutCta { width: 100%; box-shadow: none; }

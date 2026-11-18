@@ -1,0 +1,40 @@
+@use "../../styles/tokens" as *;
+@use "../../styles/mixins" as *;
+
+.matrix {
+  margin-top: $space-xl;
+  padding: $space-lg;
+  border-radius: $radius-lg;
+  background: $primary;
+  color: $on-primary;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+  @include md { grid-template-columns: repeat(3, 1fr); padding: $space-xl; }
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-md;
+
+  h4 {
+    @include headline-sm;
+    font-size: 17px;
+    line-height: 24px;
+    margin-bottom: 4px;
+  }
+  p {
+    @include body-sm;
+    color: rgba($surface-high, 0.8);
+  }
+}
+
+.icon {
+  @include icon-badge;
+  background: rgba($surface-lowest, 0.1);
+  color: $secondary-fixed;
+}
+
+.gold,
+.azure { color: $secondary-fixed; }
