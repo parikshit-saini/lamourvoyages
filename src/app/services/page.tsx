@@ -5,6 +5,7 @@ import DmcIcon from "@/components/Dmc/DmcIcon";
 import HotelBand from "@/components/Dmc/HotelBand";
 import RfpForm from "@/components/Dmc/RfpForm";
 import { contact } from "@/data/site";
+import { assetPath } from "@/lib/assetPath";
 import styles from "./services.module.scss";
 
 export const metadata: Metadata = {
@@ -170,7 +171,7 @@ export default function ServicesPage() {
               <article key={d.title} className={styles.discipline}>
                 <div className={styles.disciplineImage}>
                   <Image
-                    src={`/images/figma/${d.image}.jpg`}
+                    src={assetPath(`/images/figma/${d.image}.jpg`)}
                     alt={d.alt}
                     fill
                     sizes="(min-width: 1024px) 33vw, 100vw"

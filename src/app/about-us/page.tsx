@@ -4,6 +4,7 @@ import DmcIcon from "@/components/Dmc/DmcIcon";
 import HotelBand from "@/components/Dmc/HotelBand";
 import QuickQueryForm from "@/components/Dmc/QuickQueryForm";
 import { contact } from "@/data/site";
+import { assetPath } from "@/lib/assetPath";
 import styles from "./about.module.scss";
 
 export const metadata: Metadata = {
@@ -149,7 +150,7 @@ export default function AboutPage() {
     <div className={styles.page}>
       {/* Hero */}
       <section className={styles.hero}>
-        <Image src="/images/figma/about-hero.jpg" alt="" fill priority sizes="100vw" className={styles.heroImage} />
+        <Image src={assetPath("/images/figma/about-hero.jpg")} alt="" fill priority sizes="100vw" className={styles.heroImage} />
         <div className={styles.heroGradient} />
         <span className={styles.watermark} aria-hidden="true">DISCOVER</span>
 
@@ -212,7 +213,7 @@ export default function AboutPage() {
           <div className={styles.composite}>
             <div className={styles.compositeImage}>
               <Image
-                src="/images/figma/about-heritage.jpg"
+                src={assetPath("/images/figma/about-heritage.jpg")}
                 alt="Private jet and luxury van parked on a mountain road"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -311,7 +312,7 @@ export default function AboutPage() {
             {capabilities.map((c) => (
               <article key={c.title} className={styles.capability}>
                 <div className={styles.capabilityImage}>
-                  <Image src={`/images/figma/${c.image}.jpg`} alt={c.alt} fill sizes="(min-width: 1024px) 33vw, 100vw" />
+                  <Image src={assetPath(`/images/figma/${c.image}.jpg`)} alt={c.alt} fill sizes="(min-width: 1024px) 33vw, 100vw" />
                 </div>
                 <div className={styles.capabilityBody}>
                   <div>

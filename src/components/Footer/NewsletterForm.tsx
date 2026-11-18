@@ -2,27 +2,23 @@
 
 import { useState } from "react";
 import Icon from "@/components/Icon/Icon";
+import { openInquiryEmail } from "@/lib/emailInquiry";
 import styles from "./Footer.module.scss";
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
 
-  async function onSubmit(e: React.FormEvent) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: connect to your mailing list provider (Mailchimp, Brevo, etc.)
-    await fetch("/api/inquiry", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "newsletter", email }),
-    }).catch(() => null);
+    openInquiryEmail("Newsletter subscription request", { email });
     setDone(true);
   }
 
   if (done) {
     return (
       <p className={styles.subscribed}>
-        <Icon name="check_circle" size={18} /> Thank you — you&apos;re on the list.
+        <Icon name="check_circle" size={18} /> Press send in your email app to finish subscribing.
       </p>
     );
   }

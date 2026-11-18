@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Icon from "@/components/Icon/Icon";
+import { contact } from "@/data/site";
 import DmcIcon from "./DmcIcon";
 import { useInquiry } from "./useInquiry";
 import styles from "./DmcForms.module.scss";
@@ -61,15 +62,18 @@ export default function RfpForm() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.currentTarget).entries());
-    submit({ ...form, type: mode });
+    submit(mode === "fit" ? "FIT DMC inquiry" : "Group / MICE DMC inquiry", form);
   }
 
   if (status === "sent") {
     return (
       <div className={`${styles.card} ${styles.rfpCard} ${styles.success}`}>
         <Icon name="check_circle" size={48} />
-        <h3>Thank you, your specification is in.</h3>
-        <p>Our team will respond within 4 hours.</p>
+        <h3>Almost there: press send in your email app.</h3>
+        <p>
+          Your specification is filled in and ready to go. If no email opened, write to us at{" "}
+          <a href={`mailto:${contact.inquiryEmail}`}>{contact.inquiryEmail}</a>.
+        </p>
         <button type="button" className={styles.submit} onClick={reset}>
           Send another inquiry
         </button>
@@ -144,8 +148,8 @@ export default function RfpForm() {
           <span className={styles.note}>
             <span className={styles.dot} /> Guaranteed response within 4 hours
           </span>
-          <button type="submit" className={`${styles.submit} ${styles.submitLarge}`} disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : "Submit DMC Specification"}
+          <button type="submit" className={`${styles.submit} ${styles.submitLarge}`}>
+            Submit DMC Specification
             <DmcIcon name="send" />
           </button>
         </div>

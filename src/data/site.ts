@@ -1,3 +1,5 @@
+import { assetPath } from "@/lib/assetPath";
+
 // ---------------------------------------------------------------
 // Central content for the site. Edit here, and every page updates.
 // ---------------------------------------------------------------
@@ -5,7 +7,7 @@
 export const LOGO_URL = "https://lamourvoyages.com/wp-content/uploads/2019/11/logo-lamour-1.png";
 
 export const images = {
-  homeHero: "/images/hero-chicago.jpg",
+  homeHero: assetPath("/images/hero-chicago.jpg"),
   hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuCIIejjwu0vLpf3Kxe3Iw_C97f-XB_ZxZxC4R0MzZ6K8N6-P8ENrikNIXKgfsN0wB-ExVOl7bmp6ZrQNQWhaqwg7_onyiO2zqG_CxuYMvLwijKFLAW9gmYUdCcGp_xC0SaAM-qbuAeHdEdKEmr_vyg1tZRYa_69Q3owzYZdFJD3Yr50MllFUziP--_dnPNg8Iwq2lCmzHbhATAXidKFwxU72P4s7gW01WZZLqBsY38",
   brazil: "https://lh3.googleusercontent.com/aida-public/AB6AXuB6KJ9mMm4srkpMDqgXoR4u6NQf_z0zEDKw4X6SYZF0xqPj5OWENMj-r6gB8PAUs46xZ_E1LztFcbM8iHaTSSyzoobU7jJrkH-nGzbM4XQsSuvq72kGCgtjJOKHw1PpmqfUVzhI7kMay3tkiIYTaN6zFVcIoR4mndSrh39TCqHrbCKL-55hPO9Vm9EQqoheGII9_pMb1gmApOO4n__HdHxDO5E8aWzXuVbg-ZGQXJY",
   brazilArgentina: "https://lh3.googleusercontent.com/aida-public/AB6AXuBLd3vOxHIyCbdW1XNDsf9m1oPphY1a5Ucj6ouJkINRlTlK40kTOfC5k4QMEUwAqST5dHZlzvWc8XqHe4UFJSFOoLmaJQtA0WKv-gTW_zvhURMBHSVKndrBPuKFnKnqwDJlR5B4wtvvtbbCKyPGSarodsqFzQcYyVj5lHPsDnNwjJXZrhbjXXgnXg8Rkyz3sxIecA6hRK_Fq42sKc7hitWZP8cegBL0CZxZIHrtN24",

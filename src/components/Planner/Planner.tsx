@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Icon from "@/components/Icon/Icon";
 import { contact, tours } from "@/data/site";
+import { openInquiryEmail } from "@/lib/emailInquiry";
 import styles from "./Planner.module.scss";
 
 const tourOptions = [
@@ -16,15 +17,13 @@ function makeCode() {
   return `LM-${Math.floor(100 + Math.random() * 900)}`;
 }
 
-type Status = "idle" | "sending" | "sent" | "error";
-
 export default function Planner() {
   const [mode, setMode] = useState<"fit" | "group">("fit");
   const [tour, setTour] = useState(tourOptions[0].value);
   const [rooms, setRooms] = useState("1");
   const [persons, setPersons] = useState("2");
   const [code, setCode] = useState("LM-000");
-  const [status, setStatus] = useState<Status>("idle");
+  const [status, setStatus] = useState<"idle" | "sent">("idle");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -45,7 +44,7 @@ export default function Planner() {
     }
   }
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     const form = new FormData(e.currentTarget);
@@ -56,20 +55,12 @@ export default function Planner() {
       return;
     }
 
-    setStatus("sending");
-    const payload = Object.fromEntries(form.entries());
-    try {
-      const res = await fetch("/api/inquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: mode, ...payload }),
-      });
-      if (!res.ok) throw new Error((await res.json()).error ?? "Something went wrong");
-      setStatus("sent");
-    } catch (err) {
-      setStatus("error");
-      setError(err instanceof Error ? err.message : "Something went wrong");
-    }
+    const tourLabel = tourOptions.find((o) => o.value === form.get("tour"))?.label;
+    openInquiryEmail(mode === "fit" ? "FIT travel query" : "Group travel query", {
+      ...Object.fromEntries(form.entries()),
+      tour: tourLabel,
+    });
+    setStatus("sent");
   }
 
   return (
@@ -79,10 +70,10 @@ export default function Planner() {
           {status === "sent" ? (
             <div className={styles.success}>
               <Icon name="check_circle" size={48} />
-              <h3>Thank you, your query is in.</h3>
+              <h3>Almost there: press send in your email app.</h3>
               <p>
-                One of our travel specialists will send your personalized proposal by email and WhatsApp,
-                usually within 4 hours.
+                Your details are filled in and ready to go. If no email opened, write to us at{" "}
+                <a href={`mailto:${contact.inquiryEmail}`}>{contact.inquiryEmail}</a>.
               </p>
               <button type="button" className="btn btn--primary" onClick={() => setStatus("idle")}>
                 Send another query
@@ -219,8 +210,8 @@ export default function Planner() {
                     <input type="checkbox" name="consent" defaultChecked required />
                     I agree to receive the personalized proposal via Email &amp; WhatsApp.
                   </label>
-                  <button type="submit" className="btn btn--primary" disabled={status === "sending"}>
-                    {status === "sending" ? "Sending…" : "Send Private Query"}
+                  <button type="submit" className="btn btn--primary">
+                    Send Private Query
                     <Icon name="send" size={18} />
                   </button>
                 </div>

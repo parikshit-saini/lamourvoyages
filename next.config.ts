@@ -1,12 +1,13 @@
 import type { NextConfig } from "next";
 
+// GitHub Pages serves the site from a sub-folder, set by the deploy workflow
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || undefined;
+
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "lh3.googleusercontent.com" },
-      { protocol: "https", hostname: "lamourvoyages.com" },
-    ],
-  },
+  output: "export",
+  basePath,
+  trailingSlash: true,
+  images: { unoptimized: true },
 };
 
 export default nextConfig;

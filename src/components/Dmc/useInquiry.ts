@@ -1,29 +1,28 @@
 "use client";
 
 import { useState } from "react";
+import { openInquiryEmail } from "@/lib/emailInquiry";
 
-type Status = "idle" | "sending" | "sent" | "error";
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** Sends a form to the inquiry API and tracks its progress. */
+/** Checks a form and hands it to the visitor's email app. */
 export function useInquiry() {
-  const [status, setStatus] = useState<Status>("idle");
+  const [status, setStatus] = useState<"idle" | "sent">("idle");
   const [error, setError] = useState("");
 
-  async function submit(payload: Record<string, unknown>) {
-    setStatus("sending");
+  function submit(subject: string, fields: Record<string, unknown>) {
     setError("");
-    try {
-      const res = await fetch("/api/inquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error((await res.json()).error ?? "Something went wrong");
-      setStatus("sent");
-    } catch (err) {
-      setStatus("error");
-      setError(err instanceof Error ? err.message : "Something went wrong");
+
+    if ("contact" in fields) {
+      const value = String(fields.contact).trim();
+      if (!emailPattern.test(value) && value.replace(/\D/g, "").length < 7) {
+        setError("Please enter a valid email or phone number.");
+        return;
+      }
     }
+
+    openInquiryEmail(subject, fields);
+    setStatus("sent");
   }
 
   return { status, error, submit, reset: () => setStatus("idle") };

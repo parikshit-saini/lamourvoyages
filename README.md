@@ -7,8 +7,15 @@ Next.js 16 (App Router) + TypeScript + SCSS Modules. Built from the Stitch home 
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build && npm start
+npm run build    # static site in out/
 ```
+
+## Deploy
+
+Every push to `master` publishes the site to GitHub Pages through `.github/workflows/deploy.yml`:
+https://parikshit-saini.github.io/lamourvoyages/
+
+In the repository settings, **Pages > Build and deployment > Source** must be set to **GitHub Actions**.
 
 ## Structure
 
@@ -19,9 +26,10 @@ src/
     about-us/  services/  contact-us/  privacy-policy/
     north-america/  south-america/  canada/
     trending-destination/  new-york/  los-angeles/  miami/  orlando/  boston/
-    api/inquiry/route.ts  # receives planner + newsletter forms
     sitemap.ts  robots.ts  not-found.tsx
   components/             # Header, Footer, Hero, TourCard, Planner, Testimonials, ...
+  lib/
+    emailInquiry.ts       # opens the visitor's email app for every form
   data/
     site.ts               # nav, contacts, offices, tours, testimonials, partners
     destinations.ts       # content for the destination & city pages
@@ -35,7 +43,7 @@ Most content changes only need edits in `src/data/`.
 
 ## Before launch
 
-1. **Form delivery**: `src/app/api/inquiry/route.ts` validates submissions and logs them. Connect it to email (Resend/SMTP) or your CRM.
+1. **Form delivery**: GitHub Pages has no server, so forms open the visitor's email app addressed to `contact.inquiryEmail` in `src/data/site.ts`. An inquiry only arrives if the visitor presses send.
 2. **Images**: tour and hero images are hosted on Stitch's temporary `lh3.googleusercontent.com` URLs. Download them into `public/images/` and update `images` in `src/data/site.ts`. Move the logo into `public/` too.
 3. **Tour prices**: the Stitch design showed sample prices. The site shows durations and a custom quote instead. Add real prices to `tours` in `src/data/site.ts` if you want them displayed.
 4. **Privacy policy**: placeholder text. Replace it with your real policy.

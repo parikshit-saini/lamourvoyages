@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Icon from "@/components/Icon/Icon";
+import { contact } from "@/data/site";
 import DmcIcon from "./DmcIcon";
 import { useInquiry } from "./useInquiry";
 import styles from "./DmcForms.module.scss";
@@ -24,15 +25,18 @@ export default function QuickQueryForm() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = Object.fromEntries(new FormData(e.currentTarget).entries());
-    submit({ ...form, type: "quick", mode });
+    submit(mode === "fit" ? "FIT private query" : "Group / MICE query", form);
   }
 
   if (status === "sent") {
     return (
       <div className={`${styles.card} ${styles.quickCard} ${styles.success}`}>
         <Icon name="check_circle" size={40} />
-        <h3>Thank you, your query is in.</h3>
-        <p>Our team will respond within 4 hours.</p>
+        <h3>Almost there: press send in your email app.</h3>
+        <p>
+          Your details are filled in and ready to go. If no email opened, write to us at{" "}
+          <a href={`mailto:${contact.inquiryEmail}`}>{contact.inquiryEmail}</a>.
+        </p>
         <button type="button" className={styles.submit} onClick={reset}>
           Send another query
         </button>
@@ -101,8 +105,8 @@ export default function QuickQueryForm() {
           <span className={styles.note}>
             <DmcIcon name="lock" /> Confidential NDA Guaranteed
           </span>
-          <button type="submit" className={styles.submit} disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : "Submit Query"}
+          <button type="submit" className={styles.submit}>
+            Submit Query
             <DmcIcon name="arrow-light" />
           </button>
         </div>
